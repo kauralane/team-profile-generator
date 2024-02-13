@@ -10,6 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+let employee;
 let manager;
 let intern;
 let engineer;
@@ -98,7 +99,6 @@ function promptManagerQuestions() {
 
 function createManager(data) {
     const manager = new Manager(data.name, data.id, data.email, data.office);
-    console.log(manager);
     return manager;
 }
 
@@ -115,7 +115,8 @@ function menuResponse(data) {
     } else if (response === 'Add an intern') {
         promptInternQuestions()
     } else if (response === 'Finish building the team') {
-        render([Manager, Engineer, Intern])
+        render([Manager, Engineer, Intern]);
+        // fs.writeFile(outputPath, generateTeam, (err) => err ? console.error(err) : console.log('Success!'))
     }
 }
 
@@ -127,7 +128,6 @@ function promptEngineerQuestions() {
 
 function createEngineer(data) {
     const engineer = new Engineer(data.name, data.id, data.email, data.github)
-    console.log(engineer);
     return engineer;
 }
 
