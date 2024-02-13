@@ -98,7 +98,7 @@ function promptManagerQuestions() {
 
 function createManager(data) {
     const manager = new Manager(data.name, data.id, data.email, data.office);
-
+    console.log(manager);
     return manager;
 }
 
@@ -115,8 +115,7 @@ function menuResponse(data) {
     } else if (response === 'Add an intern') {
         promptInternQuestions()
     } else if (response === 'Finish building the team') {
-        // unsure if this is the right function name below?
-        check()
+        render([Manager, Engineer, Intern])
     }
 }
 
@@ -126,9 +125,9 @@ function promptEngineerQuestions() {
         .then(() => promptMenuQuestions());
 }
 
-// not sure if these create functions will only let you do one... 
 function createEngineer(data) {
     const engineer = new Engineer(data.name, data.id, data.email, data.github)
+    console.log(engineer);
     return engineer;
 }
 
@@ -138,16 +137,9 @@ function promptInternQuestions() {
         .then(() => promptMenuQuestions());
 }
 
-// not sure if these create functions will only let you do one... 
 function createIntern(data) {
     const intern = new Intern(data.name, data.id, data.email, data.school)
     return intern;
-}
-
-function check() {
-    manager.getName()
-    intern.getId()
-    engineer.getEmail()
 }
 
 promptManagerQuestions()
