@@ -10,10 +10,11 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
-let employee;
 let manager;
 let intern;
 let engineer;
+
+const teamMembers = [];
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
@@ -99,7 +100,7 @@ function promptManagerQuestions() {
 
 function createManager(data) {
     const manager = new Manager(data.name, data.id, data.email, data.office);
-    return manager;
+    teamMembers.push(manager)
 }
 
 function promptMenuQuestions() {
@@ -115,8 +116,7 @@ function menuResponse(data) {
     } else if (response === 'Add an intern') {
         promptInternQuestions()
     } else if (response === 'Finish building the team') {
-        render([Manager, Engineer, Intern]);
-        // fs.writeFile(outputPath, generateTeam, (err) => err ? console.error(err) : console.log('Success!'))
+        generateHTML()
     }
 }
 
@@ -128,7 +128,7 @@ function promptEngineerQuestions() {
 
 function createEngineer(data) {
     const engineer = new Engineer(data.name, data.id, data.email, data.github)
-    return engineer;
+    teamMembers.push(engineer)
 }
 
 function promptInternQuestions() {
@@ -139,7 +139,15 @@ function promptInternQuestions() {
 
 function createIntern(data) {
     const intern = new Intern(data.name, data.id, data.email, data.school)
-    return intern;
+    teamMembers.push(intern)
+}
+
+
+
+function generateHTML() {
+    let team = render(teamMembers);
+
+    fs.writeFile(outputPath, team)
 }
 
 promptManagerQuestions()
