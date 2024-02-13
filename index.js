@@ -10,6 +10,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+let manager;
+let intern;
+let engineer;
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
@@ -89,18 +92,19 @@ const internQuestions = [{
 function promptManagerQuestions() {
     console.log('Hello. Please input the following details for the manager of the team.')
     inquirer.prompt(managerQuestions)
-    .then((data) => createManager(data))
-    .then(() => promptMenuQuestions());
+        .then((data) => createManager(data))
+        .then(() => promptMenuQuestions());
 }
 
 function createManager(data) {
-let manager = data;
-console.log(manager);
+    const manager = new Manager(data.name, data.id, data.email, data.office);
+
+    return manager;
 }
 
 function promptMenuQuestions() {
     inquirer.prompt(postManagerMenu)
-    .then((data) => menuResponse(data))
+        .then((data) => menuResponse(data))
 }
 
 function menuResponse(data) {
@@ -112,32 +116,39 @@ function menuResponse(data) {
         promptInternQuestions()
     } else if (response === 'Finish building the team') {
         // unsure if this is the right function name below?
-        generateTeam();
+        check()
     }
 }
 
 function promptEngineerQuestions() {
     inquirer.prompt(engineerQuestions)
-    .then((data) => createEngineer(data))
-    .then(() => promptMenuQuestions());
+        .then((data) => createEngineer(data))
+        .then(() => promptMenuQuestions());
 }
 
 // not sure if these create functions will only let you do one... 
 function createEngineer(data) {
-    let engineer = data;
-    console.log(engineer);
+    const engineer = new Engineer(data.name, data.id, data.email, data.github)
+    return engineer;
 }
 
 function promptInternQuestions() {
     inquirer.prompt(internQuestions)
-    .then((data) => createIntern(data))
-    .then(() => promptMenuQuestions());
+        .then((data) => createIntern(data))
+        .then(() => promptMenuQuestions());
 }
 
 // not sure if these create functions will only let you do one... 
 function createIntern(data) {
-    let intern = data;
-    console.log(intern);
+    const intern = new Intern(data.name, data.id, data.email, data.school)
+    return intern;
+}
+
+function check() {
+    manager.getName()
+    intern.getId()
+    engineer.getEmail()
 }
 
 promptManagerQuestions()
+
