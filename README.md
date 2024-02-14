@@ -13,6 +13,9 @@
 ## Description
 This is a command-line application which creates team members based on user input. The application makes use of the Inquirer package to ask the user to input details (such as name, ID, office number) of a manager, engineer, and intern. The user can then finish and close the application, and the team member details will be rendered to the HTML file and can be viewed via the browser. This application also makes use of Jest as it was created  with test-driven development in mind.
 
+Screenshot of HTML output:
+![](./assets/screenshot.png)
+
 ## Installation
 The user must have node installed to use this, as the application is run via the command node index.js
 
