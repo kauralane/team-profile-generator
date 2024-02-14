@@ -26,7 +26,7 @@ const managerQuestions = [{
 {
     type: 'input',
     message: 'ID:',
-    name: 'ID'
+    name: 'id'
 },
 {
     type: 'input',
@@ -55,7 +55,7 @@ const engineerQuestions = [{
 {
     type: 'input',
     message: 'ID:',
-    name: 'ID'
+    name: 'id'
 },
 {
     type: 'input',
@@ -77,7 +77,7 @@ const internQuestions = [{
 {
     type: 'input',
     message: 'ID:',
-    name: 'ID'
+    name: 'id'
 },
 {
     type: 'input',
@@ -147,7 +147,9 @@ function createIntern(data) {
 function generateHTML() {
     let team = render(teamMembers);
 
-    fs.writeFile(outputPath, team)
+if (outputPath)
+
+    fs.writeFile(outputPath, team, (err) => err ? console.error(err) : console.log('Team created!'))
 }
 
 promptManagerQuestions()
