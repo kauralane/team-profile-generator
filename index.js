@@ -14,10 +14,10 @@ let manager;
 let intern;
 let engineer;
 
+// empty array to push newly created team members to
 const teamMembers = [];
 
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
-
+// Inquirer questions
 const managerQuestions = [{
     type: 'input',
     message: 'Name:',
@@ -91,6 +91,7 @@ const internQuestions = [{
 }
 ]
 
+// First prompt the manager questions
 function promptManagerQuestions() {
     console.log('Hello. Please input the following details for the manager of the team.')
     inquirer.prompt(managerQuestions)
@@ -98,16 +99,19 @@ function promptManagerQuestions() {
         .then(() => promptMenuQuestions());
 }
 
+// function to create the manager and push to the team array
 function createManager(data) {
     const manager = new Manager(data.name, data.id, data.email, data.office);
     teamMembers.push(manager)
 }
 
+// prompt the 'next step' menu questions after each new team member is created
 function promptMenuQuestions() {
     inquirer.prompt(postManagerMenu)
         .then((data) => menuResponse(data))
 }
 
+// depending on the user's response to the menu options, run the relevant function
 function menuResponse(data) {
     let response = data.postManagerMenu;
     console.log(`You have chosen to ${response}`)
@@ -143,7 +147,7 @@ function createIntern(data) {
 }
 
 
-
+// renders the team members array and writes the HTML code to the file in the output folder
 function generateHTML() {
     let team = render(teamMembers);
 
@@ -152,5 +156,6 @@ if (outputPath)
     fs.writeFile(outputPath, team, (err) => err ? console.error(err) : console.log('Team created!'))
 }
 
+// starts the code running
 promptManagerQuestions()
 
